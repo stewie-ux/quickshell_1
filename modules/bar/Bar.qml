@@ -8,9 +8,6 @@ import qs.modules.common.widgets
 Scope {
     id: bar
 
-    // property int barHeight: 28
-    // property int screenRounding: 16
-
     Variants {
         model: Quickshell.screens
 
@@ -66,7 +63,7 @@ Scope {
                     }
 
                     implicitSize: Appearance.bar.rounding
-                    color: "black" // Replace with bar color
+                    color: Appearance.bar.background // Replace with bar color
                     corner: RoundCorner.CornerEnum.TopLeft
                 }
 
@@ -79,7 +76,7 @@ Scope {
                     }
 
                     implicitSize: Appearance.bar.rounding
-                    color: "black" // Replace with bar color
+                    color: Appearance.bar.background // Replace with bar color
                     corner: RoundCorner.CornerEnum.TopRight
                 }
             }

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.common
+import qs.modules.bar.widgets
 
 Item {
     id: root
@@ -10,7 +11,7 @@ Item {
     Rectangle {
         id: barBackground
         anchors.fill: parent
-        color: "black"
+        color: Appearance.bar.background
 
         RowLayout {
 
@@ -20,7 +21,60 @@ Item {
                 rightMargin: 10
             }
 
-            // contents comes here
+            Item {
+                Layout.fillWidth: true
+
+                Workspaces {
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+
+                Clock {
+                    anchors.centerIn: parent
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+
+                Item {
+                    anchors.fill: parent
+
+                    Battery {
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Rectangle {
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        width: content.implicitWidth + 16
+                        height: content.implicitHeight - 2
+                        radius: (content.implicitHeight - 2) / 2
+                        color: Appearance.bar.on_primary
+
+                        Behavior on width {
+                            NumberAnimation {
+                                duration: 200
+                            }
+                        }
+
+                        Row {
+                            id: content
+                            anchors.centerIn: parent
+
+                            spacing: 12
+
+                            Network {}
+
+                            Bluetooth {}
+                        }
+                    }
+                }
+            }
         }
     }
 }
