@@ -14,13 +14,13 @@ Row {
             const percentage = Upower.percentage * 100;
 
             if (Upower.isPluggedIn) {
-                return "battery_android_bolt";
+                return "battery_android_frame_bolt";
             }
 
             if (percentage >= 100)
-                return "battery_android_full";
+                return "battery_android_frame_full";
 
-            return "battery_android_" + Math.max(1, Math.ceil(percentage / 100 * 6));
+            return "battery_android_frame_" + Math.max(1, Math.ceil(percentage / 100 * 6));
         }
     }
 

@@ -9,14 +9,14 @@ MaterialSymbol {
     iconSize: 16
     color: Appearance.bar.primary
     text: {
-        if (Bluetooth.enabled) {
-            if (!Bluetooth.connected) {
+        if (BluetoothService.enabled) {
+            if (!BluetoothService.connected) {
                 return "bluetooth";
             }
 
             return "bluetooth_connected";
         }
-        return "bluetooth_disabled";
+        return "";
     }
 
     Process {

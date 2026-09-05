@@ -5,21 +5,25 @@ import Quickshell.Wayland
 import qs
 import qs.service
 import qs.modules.common
+import qs.modules.panel.controls
 import qs.modules.common.widgets
 
 PanelWindow {
     id: root
 
     readonly property int panelWidth: 360
-    readonly property int panelHeight: 360
+    readonly property int panelHeight: 460
+
+    property bool showWifiDetail: false
+    property bool showBluetoothDetail: false
 
     visible: GlobalStates.controlsVisible
 
     anchors {
-        top: false
+        top: true
         right: true
         left: false
-        bottom: true
+        bottom: false
     }
 
     implicitWidth: root.panelWidth
@@ -38,6 +42,7 @@ PanelWindow {
 
         ColumnLayout {
             anchors.fill: parent
+            visible: !root.showBluetoothDetail && !root.showWifiDetail
             anchors.margins: 12
             spacing: 2
 
@@ -50,17 +55,44 @@ PanelWindow {
 
                 QuickToggle {
                     Layout.fillWidth: true
-                    materialSymbolOn: "bluetooth"
-                    materialSymbolOff: "bluetooth_disabled"
-                    checked: Bluetooth.enabled
+                    materialSymbolOn: "signal_wifi_4_bar"
+                    materialSymbolOff: "signal_wifi_off"
+                    checked: false // temp: for testing
                     showArrow: true
 
                     onToggled: value => {
-                        if (Bluetooth.adapter)
-                            Bluetooth.adapter.enabled = value;
+                        console.log("wifi toggleed");
                     }
                     onArrowClicked: {
-                        console.log("open bluetooth details");
+                        root.showWifiDetail = true;
+                    }
+                }
+
+                QuickToggle {
+                    Layout.fillWidth: true
+                    materialSymbolOn: "bluetooth"
+                    materialSymbolOff: "bluetooth_disabled"
+                    checked: BluetoothService.enabled
+                    showArrow: true
+
+                    onToggled: value => {
+                        if (BluetoothService.adapter)
+                            BluetoothService.adapter.enabled = value;
+                    }
+                    onArrowClicked: {
+                        root.showBluetoothDetail = true;
+                    }
+                }
+
+                QuickToggle {
+                    Layout.fillWidth: true
+                    materialSymbolOn: "local_cafe"
+                    materialSymbolOff: "emoji_food_beverage"
+                    checked: false // temp: for testing
+                    showArrow: false
+
+                    onToggled: value => {
+                        console.log("Coffee mode toggle");
                     }
                 }
             }
@@ -106,6 +138,22 @@ PanelWindow {
                 Layout.fillWidth: true
                 materialSymbol: "mic"
             }
+        }
+
+        WifiDetail {
+            id: wifiPage
+            visible: root.showWifiDetail
+            anchors.fill: parent
+            anchors.margins: 12
+            onBackClicked: root.showWifiDetail = false
+        }
+
+        BluetoothDetail {
+            id: bluetoothPage
+            visible: root.showBluetoothDetail
+            anchors.fill: parent
+            anchors.margins: 12
+            onBackClicked: root.showBluetoothDetail = false
         }
     }
 }

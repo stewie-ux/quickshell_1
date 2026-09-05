@@ -19,7 +19,7 @@ MaterialSymbol {
             return "settings_ethernet";
         }
 
-        return "signal_wifi_off";
+        return "globe_2_cancel";
     }
 
     Process {

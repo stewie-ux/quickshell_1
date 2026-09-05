@@ -54,11 +54,12 @@ Item {
                         width: content.implicitWidth + 16
                         height: content.implicitHeight - 2
                         radius: (content.implicitHeight - 2) / 2
-                        color: Appearance.bar.on_primary
+                        // color: Appearance.bar.on_primary
+                        color: "transparent"
 
                         Behavior on width {
                             NumberAnimation {
-                                duration: 200
+                                duration: 150
                             }
                         }
 
