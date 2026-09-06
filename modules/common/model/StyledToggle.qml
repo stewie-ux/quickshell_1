@@ -44,13 +44,19 @@ Rectangle {
             right: root.showArrow ? separator.left : parent.right
         }
 
+        // MouseArea {
+        //     anchors.fill: parent
+        //     cursorShape: Qt.PointingHandCursor
+        //     onClicked: {
+        //         root.checked = !root.checked;
+        //         root.toggled(root.checked);
+        //     }
+        // }
+
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.checked = !root.checked;
-                root.toggled(root.checked);
-            }
+            onClicked: root.toggled(!root.checked)
         }
     }
 

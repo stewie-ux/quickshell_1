@@ -72,6 +72,8 @@ Item {
                             Network {}
 
                             Bluetooth {}
+
+                            Notifications {}
                         }
                     }
                 }

@@ -55,13 +55,13 @@ PanelWindow {
 
                 QuickToggle {
                     Layout.fillWidth: true
-                    materialSymbolOn: "signal_wifi_4_bar"
-                    materialSymbolOff: "signal_wifi_off"
-                    checked: false // temp: for testing
+                    materialSymbolOn: "wifi"
+                    materialSymbolOff: "wifi"
+                    checked: NetworkService.wifiEnabled
                     showArrow: true
 
                     onToggled: value => {
-                        console.log("wifi toggleed");
+                        NetworkService.setWifiEnabled(value);
                     }
                     onArrowClicked: {
                         root.showWifiDetail = true;
@@ -71,7 +71,7 @@ PanelWindow {
                 QuickToggle {
                     Layout.fillWidth: true
                     materialSymbolOn: "bluetooth"
-                    materialSymbolOff: "bluetooth_disabled"
+                    materialSymbolOff: "bluetooth"
                     checked: BluetoothService.enabled
                     showArrow: true
 
@@ -81,18 +81,6 @@ PanelWindow {
                     }
                     onArrowClicked: {
                         root.showBluetoothDetail = true;
-                    }
-                }
-
-                QuickToggle {
-                    Layout.fillWidth: true
-                    materialSymbolOn: "local_cafe"
-                    materialSymbolOff: "emoji_food_beverage"
-                    checked: false // temp: for testing
-                    showArrow: false
-
-                    onToggled: value => {
-                        console.log("Coffee mode toggle");
                     }
                 }
             }
