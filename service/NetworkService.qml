@@ -107,13 +107,17 @@ Singleton {
     // Debug
     // ------------------------------------------------------------------
 
-    // Component.onCompleted: {
-    //     console.log("------------- Network -------------");
-    //     console.log("Connected:", connected);
-    //     console.log("Type:", connectionType);
-    //     console.log("SSID:", ssid);
-    //     console.log("Signal:", signalStrength);
-    //     console.log("Device:", activeDevice?.name);
-    //     console.log("-----------------------------------");
-    // }
+    Component.onCompleted: {
+        console.log("------------- Network -------------");
+        console.log("Connected:", connected);
+        console.log("Type:", connectionType);
+        console.log("SSID:", ssid);
+        console.log("Signal:", signalStrength);
+        console.log("Device:", activeDevice?.name);
+        console.log("-----------------------------------");
+        console.log("Scaning:", scanning);
+        console.log("Networks:", wifiDevice?.networks);
+        console.log("Active Network:", activeNetwork);
+        console.log("-----------------------------------");
+    }
 }

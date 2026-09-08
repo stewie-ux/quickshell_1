@@ -1,17 +1,22 @@
 import QtQuick
-import Quickshell.Io
 import qs.service
 import qs.modules.common
 import qs.modules.common.widgets
 
 MaterialSymbol {
-    fill: 0
+    fill: 0 // it could be 1 or 0 (true / false)
     iconSize: 16
-    color: Qt.alpha(Appearance.bar.primary, 0.3)
+    color: Appearance.bar.primary
     text: {
         if (NetworkService.connected) {
             if (NetworkService.connectionType === "wifi") {
-                return "wifi";
+                if (NetworkService.signalStrength >= 75)
+                    return "signal_wifi_4_bar";
+                if (NetworkService.signalStrength >= 50)
+                    return "network_wifi_3_bar";
+                if (NetworkService.signalStrength >= 25)
+                    return "network_wifi_2_bar";
+                return "network_wifi_1_bar";
             }
 
             return "settings_ethernet";
@@ -20,40 +25,19 @@ MaterialSymbol {
         return "globe_2_cancel";
     }
 
-    MaterialSymbol {
-        fill: 0 // it could be 1 or 0 (true / false)
-        iconSize: 16
-        color: Appearance.bar.primary
-        text: {
-            if (NetworkService.connected) {
-                if (NetworkService.connectionType === "wifi") {
-                    if (NetworkService.signalStrength >= 93)
-                        return "wifi";
-                    if (NetworkService.signalStrength < 93)
-                        return "wifi_2_bar";
-                    return "wifi_1_bar";
-                }
+    // Process {
+    //     id: networkSettings
+    //     command: ["kcmshell6", "kcm_networkmanagement"]
+    //     running: false
+    // }
 
-                return "settings_ethernet";
-            }
+    // MouseArea {
+    //     anchors.fill: parent
 
-            return "globe_2_cancel";
-        }
+    //     HoverHandler {
+    //         cursorShape: Qt.PointingHandCursor
+    //     }
 
-        // Process {
-        //     id: networkSettings
-        //     command: ["kcmshell6", "kcm_networkmanagement"]
-        //     running: false
-        // }
-
-        // MouseArea {
-        //     anchors.fill: parent
-
-        //     HoverHandler {
-        //         cursorShape: Qt.PointingHandCursor
-        //     }
-
-        //     onClicked: networkSettings.running = true
-        // }
-    }
+    //     onClicked: networkSettings.running = true
+    // }
 }

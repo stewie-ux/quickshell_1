@@ -83,6 +83,18 @@ PanelWindow {
                         root.showBluetoothDetail = true;
                     }
                 }
+
+                QuickToggle {
+                    Layout.fillWidth: true
+                    materialSymbolOn: "mic"
+                    materialSymbolOff: "mic"
+                    checked: false
+                    showArrow: false
+
+                    onToggled: value => {
+                        console.log("Mic");
+                    }
+                }
             }
 
             QuickSlider {
