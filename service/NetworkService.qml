@@ -107,6 +107,29 @@ Singleton {
     // Debug
     // ------------------------------------------------------------------
 
+    function logNetworks() {
+        if (!networks) {
+            console.log("No wifi device / networks list available");
+            return;
+        }
+
+        const list = networks.values;
+        console.log(`--- Scanned networks (${list.length}) ---`);
+        list.forEach(n => {
+            console.log(`SSID: "${n.name}"`, "| security:", WifiSecurityType.toString(n.security), "| locked:", n.security !== WifiSecurityType.Open, "| signal:", Math.round(n.signalStrength * 100) + "%", "| known:", n.known, "| connected:", n.connected, "| stateChanging:", n.stateChanging);
+        });
+        console.log("-------------------------------------");
+    }
+
+    Timer {
+        // Only used for debugging the scan results — logs every 2s while scanning
+        interval: 2000
+        repeat: true
+        running: root.scanning
+        triggeredOnStart: true
+        onTriggered: root.logNetworks()
+    }
+
     Component.onCompleted: {
         console.log("------------- Network -------------");
         console.log("Connected:", connected);
@@ -116,8 +139,6 @@ Singleton {
         console.log("Device:", activeDevice?.name);
         console.log("-----------------------------------");
         console.log("Scaning:", scanning);
-        console.log("Networks:", wifiDevice?.networks);
-        console.log("Active Network:", activeNetwork);
         console.log("-----------------------------------");
     }
 }
