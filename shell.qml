@@ -1,3 +1,5 @@
+//@ pragma UseQApplication
+
 import "modules/bar"
 import "modules/panel"
 import "modules/osd"

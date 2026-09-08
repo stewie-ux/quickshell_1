@@ -69,6 +69,8 @@ Item {
 
                             spacing: 12
 
+                            Tray {}
+
                             Network {}
 
                             Bluetooth {}
